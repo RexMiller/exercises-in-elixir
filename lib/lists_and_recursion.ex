@@ -60,8 +60,9 @@ Practicing recursion on lists
     do: Kernel.max(head, max(tail))
 
   @doc """
-  Returns the max item in a list. This was a user-submitted solution. 
-  I find this easiest of the three implementations to unwind in my head.
+  Returns the max item in a list. This was a user-submitted solution on
+  forums.pragprog.com. I find this easiest of the three implementations 
+  to unwind in my head.
   """
   def max1([starting_value | tail]), 
     do: _max1(tail, starting_value)
@@ -72,9 +73,9 @@ Practicing recursion on lists
   defp _max1([], value), do: value
 
   @doc """
-  Returns the max item in a list. This was a user-submitted solution. 
-  I find this the most elegant of the three implementations because
-  it uses the head of the list as the tracking value.
+  Returns the max item in a list. This was another user-submitted solution. 
+  on forums.pragprog.com. I find this the most elegant of the three 
+  implementations because it uses the head of the list as the tracking value.
   """
   def max2([max | [head | tail]]) when max >= head, 
     do: max2([max | tail])
@@ -84,33 +85,13 @@ Practicing recursion on lists
 
   @doc """
   Returns the max item in a list. This was another user-submitted 
-  solution that I like because of its interesting use of pattern
-  matching on the list and tail-call recursion.
+  solution on forums.pragprog.com that I like because of its interesting 
+  use of pattern matching on the list and tail-call recursion.
   """
   def max3([head]), do: head
   def max3([head1, head2 | tail]) when head1 > head2,
     do: max3([head1 | tail])
   def max3([_head1, head2 | tail]),
     do: max3([head2 | tail])
-  
-  def caesar_shift(list, shift), 
-    do: _caesar_shift(list, shift, [])
-  defp _caesar_shift([], _shift, accumulator), 
-    do: accumulator
-  defp _caesar_shift([char | tail], shift, accumulator) do 
-    shifted = _shift(char, shift)
-    _caesar_shift(tail, shift, accumulator ++ [shifted])
-  end
-
-  defp _shift(char, shift) do
-    if _should_wrap(char, shift),
-      do: (char - 26) + shift,
-      else: char + shift
-  end
-
-  defp _should_wrap(char, shift) when char in (?A..?Z),
-    do: char + shift > ?Z
-  defp _should_wrap(char, shift) when char in (?a..?z),
-    do: char + shift > ?z
-
+    
 end

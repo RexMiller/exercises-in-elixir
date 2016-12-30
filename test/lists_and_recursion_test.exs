@@ -82,18 +82,4 @@ defmodule ListsAndRecursionTest do
     assert result == "elixir"
   end
 
-  test "Ceasar shift should wrap" do
-    result = caesar_shift('ryvkve', 13)
-    assert result == 'elixir'
-  end
-
-  test "Ceasar shift should accept uppercase" do
-    result = caesar_shift('RYVKVE', 13)
-    assert result == 'ELIXIR'
-  end
-
-  test "Ceasar shift should accept mixed-case" do
-    result = caesar_shift('rYvKvE', 13)
-    assert result == 'eLiXiR'
-  end
 end

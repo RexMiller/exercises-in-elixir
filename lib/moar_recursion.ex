@@ -36,27 +36,28 @@ Practicing recursion and matching strategies with various implementations of fun
   @doc """
   Reverses a list using recursion.
   
-  ## How does this work?
+  ## How does this work? (I have to put this in here so I can understand/remember)
   list = [3, 2, 1]
   
   The first call passes in the list, which is matched to a head and a tail, and an 
   empty list as the starting result accumlator.
   reverse([3 | [2, 1]], []) 
-  |
-  | The next call passes the current tail ([2, 1]) as the new list, and the current
-  | head plus the empty accumlated result ([3 | []]) as the new accumulated result.
-  --reverse([2 | [1]], [3 | []])
-    |
-    | The next call passes the current tail ([1]) as the new list, and the current head
-    | plus the previously accumlated result ([2 | [3]]) as the new accumulated result.
-    --reverse([1 | []], [2 | [3]])
-      |
-      | The next call passes the current tail ([]) as the new list, and the current head
-      | plus the previously accumlated result ([1 | [2 , 3]]) as the new accumulated result.
-      --reverse([], [1 | [2, 3]])
-          This call matches the function head whose parameters are an empty list and the
-          accumulated result so it returns the accumulated result:
-          ——> [1, 2, 3]
+  │
+  │ The next call passes the current tail ([2, 1]) as the new list, and the current
+  │ head plus the empty accumlated result ([3 | []]) as the new accumulated result.
+  └>reverse([2 | [1]], [3 | []])
+    │
+    │ The next call passes the current tail ([1]) as the new list, and the current head
+    │ plus the previously accumlated result ([2 | [3]]) as the new accumulated result.
+    └>reverse([1 | []], [2 | [3]])
+      │
+      │ The next call passes the current tail ([]) as the new list, and the current head
+      │ plus the previously accumlated result ([1 | [2 , 3]]) as the new accumulated result.
+      └>reverse([], [1 | [2, 3]])
+        │
+        │ This call matches the function head whose parameters are an empty list and the 
+        │ accumulated result so it returns the accumulated result:
+        └────>[1, 2, 3]
   """
   def reverse(list),
     do: reverse(list, [])
@@ -96,6 +97,7 @@ Practicing recursion and matching strategies with various implementations of fun
   
   @doc """
   For each element in a list, raises it to the power of its  position in the list.
+  This is an example of how I can use the index of the item in the mapped function.
 
   ## Example
   iex>Exercises.MoarRecursion.each_to_power_of_position([2, 2, 2])
