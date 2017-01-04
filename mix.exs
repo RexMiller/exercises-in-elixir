@@ -8,7 +8,7 @@ defmodule GettingStarted.Mixfile do
      deps: deps()]
   end
 
-  def application, do: []
+  def application, do: [applications: [:logger]]
 
   defp deps do
     [

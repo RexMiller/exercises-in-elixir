@@ -82,4 +82,18 @@ defmodule ListsAndRecursionTest do
     assert result == "elixir"
   end
 
+  test "span should return a list of numbers from start to end" do
+    result = span(10, 20)
+    assert(length(result) == 11)
+    assert(List.first(result) == 10)
+    assert(List.last(result) == 20)
+  end
+
+  test "span1 should return a list of numbers from start to end" do
+    result = span1(10, 20)
+    assert(length(result) == 11)
+    assert(List.first(result) == 10)
+    assert(List.last(result) == 20)
+  end
+
 end

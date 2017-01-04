@@ -93,5 +93,19 @@ Practicing recursion on lists
     do: max3([head1 | tail])
   def max3([_head1, head2 | tail]),
     do: max3([head2 | tail])
-    
+  
+  def span(from, to),
+    do: _span([from], from, to)
+
+  defp _span([head | _], _, to) when head > to,
+    do: []
+
+  defp _span([head | tail], from, to),
+    do: [head | _span([head + 1 | tail], from, to)]
+
+  def span1(from, to),
+    do: [from | span(from + 1, to)]
+  def span1(from, to) when from > to,
+    do: []
+
 end
