@@ -103,9 +103,9 @@ Practicing recursion on lists
   defp _span([head | tail], from, to),
     do: [head | _span([head + 1 | tail], from, to)]
 
-  def span1(from, to),
-    do: [from | span(from + 1, to)]
   def span1(from, to) when from > to,
     do: []
+  def span1(from, to),
+    do: [from | span1(from + 1, to)]
 
 end
