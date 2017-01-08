@@ -1,4 +1,8 @@
 defmodule Exercises.BottleSong.One do
+@moduledoc """
+Demonstrates recursion, matching, guard clauses, and control flow with the bottle song.
+"""
+
   defp next_bottle(1), do: "1 bottle"
   defp next_bottle(n), do: "#{n} bottles"
 
@@ -18,6 +22,10 @@ defmodule Exercises.BottleSong.One do
 end
 
 defmodule Exercises.BottleSong.Two do
+@moduledoc """
+Demonstrates recursion, matching, guard clauses, and control flow with the bottle song.
+"""
+
   defp next_bottle(1), do: "1 bottle"
   defp next_bottle(n), do: "#{n} bottles" 
 
@@ -37,7 +45,7 @@ end
 
 defmodule Exercises.BottleSong.Three do
 @moduledoc """
-Demonstrate recursion, matching, guard clauses, and control flow with the bottle song.
+Demonstrates recursion, matching, guard clauses, and control flow with the bottle song.
 """
   
   defp next_bottle(number) do

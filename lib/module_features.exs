@@ -20,10 +20,13 @@ Demonstrates some features of module implementation
   # Alias an external module for the scope of this module
   alias Exercises.Math.Util, as: MyMath
 
+  # Our own version of inspect gets invoked here
   def say_here do
     inspect "I'm Here"
   end
 
+  # Doesn't clash with Kernel.inspect because 
+  # of the exclusion in the import
   def inspect(param1) do
     puts "starting output"
     puts param1

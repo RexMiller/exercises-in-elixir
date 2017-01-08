@@ -1,4 +1,7 @@
 defmodule Exercises.Caesar do
+@moduledoc """
+Various implementations of a caesar shift with wrapping
+"""
 
   @doc """
   My favorite implementation—not mine, but submitted by a user on forums.pragprog.com.
