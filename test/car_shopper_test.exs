@@ -1,5 +1,4 @@
 defmodule ShopperTest do
-  import Exercises.CarShopper
   use ExUnit.Case
 
   defp _is_car(%Exercises.Car{}), do: true

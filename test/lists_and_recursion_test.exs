@@ -96,4 +96,83 @@ defmodule ListsAndRecursionTest do
     assert(List.last(result) == 20)
   end
 
+  test "all should return true when all are true" do
+    list = [2, 4, 6]
+
+    all?(list, fn(e) -> rem(e, 2) == 0 end)
+    # |> IO.inspect(label: "\nall? should return true")
+    |> assert()
+  end
+
+  test "all should return false when one is false" do
+    list = [2, 4, 5, 6]
+
+    all?(list, fn(e) -> rem(e, 2) == 0 end)
+    # |> IO.inspect(label: "\nall? should return false")
+    |> refute()
+  end
+
+  test "all2 should return true when all are true" do
+    list = [2, 4, 6]
+
+    all2?(list, fn(e) -> rem(e, 2) == 0 end)
+    # |> IO.inspect(label: "\nall2? should return true")
+    |> assert()
+  end
+
+  test "all2 should return false when one is false" do
+    list = [2, 4, 5, 6]
+
+    all2?(list, fn(e) -> rem(e, 2) == 0 end)
+    # |> IO.inspect(label: "\nall2? should return false")
+    |> refute()
+  end
+
+  @tag :skip # <- noisy test
+  test "each should apply to each" do
+    result = each([2, 4, 6], fn(e) -> IO.puts("\neach:#{e}") end)
+    
+    assert(result == :ok)
+  end
+
+  test "filter should return only evens" do
+    list = [2, 4, 5]
+
+    filtered = filter(list, fn(e) -> rem(e, 2) == 0 end)
+    # |> IO.inspect(label: "\nfilter should return only evens")
+    
+    assert(filtered == [2, 4])
+  end
+
+  test "filter should return only words with x" do
+    list = ["jax", "hacks", "trax"]
+
+    filtered = filter(list, fn(e) -> String.contains?(e, "x") end)
+    # |> IO.inspect(label: "\nfilter should return only words with x")
+    
+    assert(filtered == ["jax", "trax"])
+  end
+
+  test "Split gonna split" do
+    [1, 2, 3, 4]
+    |> split(2)
+    |> _assert_equal({[1, 2], [3, 4]})
+  end
+
+  test "Split gonna split backwards" do
+    [1, 2, 3, 4, 5]
+    |> split(-3)
+    |> _assert_equal({[1, 2], [3, 4, 5]})
+  end
+
+  @tag :skip
+  test "Split gonna split at zero" do
+    [1, 2, 3]
+    |> split(0)
+    |> _assert_equal({[], [1, 2, 3]})
+  end
+
+  defp _assert_equal(val1, val2) do
+    assert(val1 == val2)
+  end
 end

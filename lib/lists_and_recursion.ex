@@ -108,4 +108,58 @@ Practicing recursion on lists
   def span1(from, to),
     do: [from | span1(from + 1, to)]
 
+  def all?(list, func), 
+    do: _all(list, func, true)
+
+  defp _all([], _func, accumulator), 
+    do: accumulator
+
+  defp _all(_list, _func, false),
+     do: false
+
+  defp _all([head | tail], func,  _accumulator),
+    do: _all(tail, func, func.(head))
+
+  def all2?([], _), do: true
+  def all2?([head | tail], func) do
+    if func.(head),
+      do: all2?(tail, func),
+      else: false
+  end
+
+  def each(list, func), do: 
+    _each(list, func, [])
+  
+  defp _each([], _, _), do: :ok
+  defp _each([head | tail], func, acc),
+    do: _each(tail, func, [func.(head)] ++ acc)
+  
+  
+  def filter(list, func), 
+    do: _filter(list, func, [])
+
+  def _filter([], _func, acc), do: acc
+
+  def _filter([head | tail], func, acc) do
+    if func.(head), 
+      do: _filter(tail, func, acc ++ [head]),
+      else: _filter(tail, func, acc)
+  end
+
+  def split(list, 0), 
+    do: {[], list}
+  def split(list, count), 
+    do: _split(list, count, {[], []})
+
+  defp _split(_list, count, { list1, _list2 } = acc)
+    when length(list1) == count,
+    do: acc
+
+  defp _split(_list, count, { _list1, list2 } = acc)
+    when length(list2) == -1 * count,
+    do: acc
+
+  defp _split([head | tail], count, { list1, _list2 } = _acc) do
+    _split(tail, count, {list1 ++ [head], tail})
+  end
 end
