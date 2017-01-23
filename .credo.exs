@@ -83,7 +83,7 @@
         {Credo.Check.Refactor.CondStatements},
         {Credo.Check.Refactor.FunctionArity},
         {Credo.Check.Refactor.MatchInCondition},
-        {Credo.Check.Refactor.PipeChainStart, false},
+        {Credo.Check.Refactor.PipeChainStart},
         {Credo.Check.Refactor.CyclomaticComplexity},
         {Credo.Check.Refactor.NegatedConditionsInUnless},
         {Credo.Check.Refactor.NegatedConditionsWithElse},
@@ -91,7 +91,7 @@
         {Credo.Check.Refactor.UnlessWithElse},
 
         {Credo.Check.Warning.IExPry},
-        {Credo.Check.Warning.IoInspect},
+        {Credo.Check.Warning.IoInspect, false},
         {Credo.Check.Warning.NameRedeclarationByAssignment},
         {Credo.Check.Warning.NameRedeclarationByCase},
         {Credo.Check.Warning.NameRedeclarationByDef},

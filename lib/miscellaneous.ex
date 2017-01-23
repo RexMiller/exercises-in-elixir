@@ -1,6 +1,6 @@
 defmodule Exercises.Misc do
 @moduledoc """
-Reminders for me about various Elixir language features
+Various basic Elixir language features
 """
   
   @doc """
@@ -11,10 +11,10 @@ Reminders for me about various Elixir language features
   end
 
   @doc """
-  Added this to demonstrate piping for a curious onlooker.
+  Demonstrating piping for a curious onlooker
   """
   def piping() do
-    add(2, 2) |> double() |> multiply(3) # <— 24 
+    2 |> add(2) |> double() |> multiply(3) # <— 24 
   end
 
   def add(n1, n2) do

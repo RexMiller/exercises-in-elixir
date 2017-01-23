@@ -112,21 +112,23 @@ defmodule ListsAndRecursionTest do
     |> refute()
   end
 
-  test "all2 should return true when all are true" do
-    list = [2, 4, 6]
 
-    all2?(list, fn(e) -> rem(e, 2) == 0 end)
-    # |> IO.inspect(label: "\nall2? should return true")
+  test "any should return false for empty list" do
+    any?([], fn(e) -> rem(e, 2) == 0 end) |> refute()
+  end
+
+  test "any should return true for first true" do
+    [3, 4, 5] 
+    |> any?(fn(e) -> rem(e, 2) == 0 end)
     |> assert()
   end
 
-  test "all2 should return false when one is false" do
-    list = [2, 4, 5, 6]
-
-    all2?(list, fn(e) -> rem(e, 2) == 0 end)
-    # |> IO.inspect(label: "\nall2? should return false")
+  test "any should return false when none are true" do
+    [3, 5, 7, 9]
+    |> any?(fn(e) -> rem(e, 2) == 0 end)
     |> refute()
   end
+
 
   @tag :skip # <- noisy test
   test "each should apply to each" do
@@ -156,23 +158,46 @@ defmodule ListsAndRecursionTest do
   test "Split gonna split" do
     [1, 2, 3, 4]
     |> split(2)
-    |> _assert_equal({[1, 2], [3, 4]})
+    |> assert_equal({[1, 2], [3, 4]})
   end
 
   test "Split gonna split backwards" do
     [1, 2, 3, 4, 5]
     |> split(-3)
-    |> _assert_equal({[1, 2], [3, 4, 5]})
+    |> assert_equal({[1, 2], [3, 4, 5]})
   end
 
-  @tag :skip
   test "Split gonna split at zero" do
     [1, 2, 3]
     |> split(0)
-    |> _assert_equal({[], [1, 2, 3]})
+    |> assert_equal({[], [1, 2, 3]})
   end
 
-  defp _assert_equal(val1, val2) do
+  test "Split with out of bound arg" do
+    [1, 2, 3]
+    |> split(4)
+    |> assert_equal({[1, 2, 3], []})
+  end
+
+  test "Split on an empty list" do
+    []
+    |> split(4)
+    |> assert_equal({[], []})
+  end
+
+  test "take n returns first n elements" do
+    [1, 2, 3, 4] |> take(2) |> assert_equal([1, 2])
+  end
+
+  test "take against an empty list returns empty list" do
+    [] |> take(2) |> assert_equal([])    
+  end
+
+  test "take 0 returns empty list" do
+    [1, 2, 3] |> take(0) |> assert_equal([])    
+  end
+
+  defp assert_equal(val1, val2) do
     assert(val1 == val2)
   end
 end

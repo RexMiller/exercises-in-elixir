@@ -93,7 +93,11 @@ Practicing recursion on lists
     do: max3([head1 | tail])
   def max3([_head1, head2 | tail]),
     do: max3([head2 | tail])
-  
+
+
+  @doc """
+  Reimplements span for practice - inelegant way.
+  """
   def span(from, to),
     do: _span([from], from, to)
 
@@ -103,63 +107,105 @@ Practicing recursion on lists
   defp _span([head | tail], from, to),
     do: [head | _span([head + 1 | tail], from, to)]
 
+
+  @doc """
+  Reimplements span for practice - more elegant way.
+  """
   def span1(from, to) when from > to,
     do: []
   def span1(from, to),
     do: [from | span1(from + 1, to)]
 
-  def all?(list, func), 
-    do: _all(list, func, true)
 
-  defp _all([], _func, accumulator), 
-    do: accumulator
+  @doc """
+  Reimplements all? for practice.
+  """
+  def all?([], _), do: true
 
-  defp _all(_list, _func, false),
-     do: false
-
-  defp _all([head | tail], func,  _accumulator),
-    do: _all(tail, func, func.(head))
-
-  def all2?([], _), do: true
-  def all2?([head | tail], func) do
+  def all?([head | tail], func) do
     if func.(head),
-      do: all2?(tail, func),
+      do: all?(tail, func),
       else: false
   end
 
+  @doc """
+  Reimplements any? for practice.
+  """
+  def any?([], _), do: false
+
+  def any?([head | tail], func) do
+    if func.(head),
+      do: true,
+      else: any?(tail, func) 
+  end
+
+  @doc """
+  Reimplements each? for practice.
+  """
   def each(list, func), do: 
-    _each(list, func, [])
+    _each(list, func)
   
-  defp _each([], _, _), do: :ok
-  defp _each([head | tail], func, acc),
-    do: _each(tail, func, [func.(head)] ++ acc)
+  defp _each([], _), do: :ok
+
+  defp _each([head | tail], func) do 
+    func.(head)
+    _each(tail, func)
+  end
   
-  
+  @doc """
+  Reimplements filter for practice.
+  """
   def filter(list, func), 
     do: _filter(list, func, [])
 
-  def _filter([], _func, acc), do: acc
+  def _filter([], _func, acc), 
+    do: Enum.reverse(acc)
 
   def _filter([head | tail], func, acc) do
     if func.(head), 
-      do: _filter(tail, func, acc ++ [head]),
+      do: _filter(tail, func, [head | acc]),
       else: _filter(tail, func, acc)
   end
 
+
+  @doc """
+  Reimplements split for practice.
+  """
   def split(list, 0), 
     do: {[], list}
+
   def split(list, count), 
     do: _split(list, count, {[], []})
 
-  defp _split(_list, count, { list1, _list2 } = acc)
+  defp _split(_list, count, {list1, list2} = _acc)
     when length(list1) == count,
-    do: acc
+    do: {Enum.reverse(list1), list2}
 
-  defp _split(_list, count, { _list1, list2 } = acc)
+  defp _split(_list, count, {list1, list2} = _acc)
     when length(list2) == -1 * count,
-    do: acc
+    do: {Enum.reverse(list1), list2}
 
-  defp _split([head | tail], count, { list1, _list2 } = _acc) do
-    _split(tail, count, {list1 ++ [head], tail})
+  defp _split([], _count, {list1, list2} = _acc),
+    do: {Enum.reverse(list1), list2}
+
+  defp _split([head | tail], count, {list1, _} = _acc) do
+    _split(tail, count, {[head | list1], tail})
   end
+
+
+  @doc """
+  Reimplements take for practice.
+  """
+  def take(list, count),
+    do: _take(list, count, [])
+
+  defp _take([], _count, _acc),
+    do: []
+
+  defp _take(_list, count, acc)
+    when count == length(acc),
+    do: Enum.reverse(acc)
+
+  defp _take([head | tail], count, acc),
+    do: _take(tail, count, [head | acc])
 end
