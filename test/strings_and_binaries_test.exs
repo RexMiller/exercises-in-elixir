@@ -24,4 +24,17 @@ defmodule StringsAndBinariesTest do
     padding = div((width - String.length(content)), 2)
     String.duplicate(" ", padding) <> content <> String.duplicate(" ", padding)
   end
+
+  test "capitalize sentances" do
+    result = capitalize_sentances("oh. a DOG. woof.")
+    expected = "Oh. A dog. Woof."
+    assert(expected == result)
+  end
+
+  defp capitalize_sentances(string) do
+    string 
+    |> String.split(". ", trim: true) 
+    |> Enum.map(fn(sentance) -> String.capitalize(sentance) end) 
+    |> Enum.join(". ")
+  end
 end
