@@ -20,13 +20,12 @@ defmodule OrderTaxCalcTest do
     assert(expected == total_order)
   end
 
-  test "strings and stuff" do
-    order = "123,:NC,100.00"
-    
+  test "order processing can get record from csv given headers" do
+    csv = "123,:NC,100.00"
+    headers = [:id, :ship_to, :net_amount]
+    record = get_record_from_csv(csv, headers)
+    expected = [id: 123, ship_to: :NC, net_amount: 100.0]
+    assert record == expected
   end
 
-  defp parse_field(field) do
-    
-  end
-  
 end

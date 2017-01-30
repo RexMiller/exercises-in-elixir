@@ -22,6 +22,31 @@ defmodule Exercises.OrderProcessing do
     [id: id, ship_to: ship_to, net_amount: net, total_amount: total]
   end
 
+  def get_record_from_csv(csv, headers) do
+    csv
+    |> parse_record()
+    |> format_record(headers)
+  end
+
+  defp parse_record(csv) do
+    csv
+    |> String.split(",")
+    |> Enum.map(&parse_field/1)
+  end
+
+  defp parse_field(field) do
+    cond do
+      Regex.match?(~r{^\d*\.\d+$}, field) -> String.to_float(field)
+      Regex.match?(~r{^\d+$}, field) -> String.to_integer(field)
+      <<?: ::utf8, atom::binary>> = field -> String.to_atom(atom)
+      true -> field
+    end
+  end
+
+  defp format_record(record, headers) do
+    Enum.zip(headers, record)
+  end
+
   def get_tax_rates(),
     do: [NC: 0.075, TX: 0.08]
 

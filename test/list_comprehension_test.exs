@@ -6,7 +6,7 @@ defmodule ListComprehensionTest do
   test "Pattern matching in list comprehension" do
     orders = get_orders()
 
-    for [id: id, ship_to: ship_to, net_amount: net] <- orders, 
+    for [id: _id, ship_to: ship_to, net_amount: _net] <- orders, 
       do: IO.inspect ship_to
   end
 
