@@ -24,14 +24,14 @@ defmodule Exercises.OrderProcessing do
 
   def get_record_from_csv(csv, headers) do
     csv
-    |> parse_record()
+    |> parse_row(&parse_field/1)
     |> format_record(headers)
   end
 
-  defp parse_record(csv) do
+  def parse_row(csv, mapper) do
     csv
     |> String.split(",")
-    |> Enum.map(&parse_field/1)
+    |> Enum.map(mapper)
   end
 
   defp parse_field(field) do
@@ -61,6 +61,44 @@ defmodule Exercises.OrderProcessing do
       [id: 129, ship_to: :CA, net_amount: 102.00],
       [id: 130, ship_to: :NC, net_amount: 50.00]
     ]
+  end
+  
+end
+
+defmodule Exercises.OrderRepository do
+  
+  def get_all do
+    file = File.open!("orders.csv") 
+    
+    headers = IO.read(file, :line) |> parse_row(&String.to_atom/1)
+
+    file |> IO.stream(:line) |> Enum.map(fn(row) -> get_record_from_csv(row, headers) end)
+  end
+
+  defp get_record_from_csv(csv, headers) do
+    csv
+    |> parse_row(&parse_field/1)
+    |> format_record(headers)
+  end
+
+  defp parse_row(csv, mapper) do
+    csv
+    |> String.split(",", trim: true)
+    |> Enum.map(&(String.trim_trailing(&1))) # not sure why trim option in split isnt working
+    |> Enum.map(mapper)
+  end
+
+  defp parse_field(field) do
+    cond do
+      Regex.match?(~r{^\d*\.\d+$}, field) -> String.to_float(field)
+      Regex.match?(~r{^\d+$}, field) -> String.to_integer(field)
+      <<?: ::utf8, atom::binary>> = field -> String.to_atom(atom)
+      true -> field
+    end
+  end
+
+  defp format_record(record, headers) do
+    Enum.zip(headers, record)
   end
   
 end

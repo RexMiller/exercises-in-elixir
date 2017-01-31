@@ -20,6 +20,13 @@ defmodule OrderTaxCalcTest do
     assert(expected == total_order)
   end
 
+  test "can get headers from header csv" do
+    header_csv = "id,ship_to,net_amount"
+    header_row = parse_row(header_csv, &String.to_atom/1)
+    expected = [:id, :ship_to, :net_amount]
+    assert header_row == expected
+  end
+
   test "order processing can get record from csv given headers" do
     csv = "123,:NC,100.00"
     headers = [:id, :ship_to, :net_amount]
@@ -28,4 +35,7 @@ defmodule OrderTaxCalcTest do
     assert record == expected
   end
 
+  test "files and stuff" do
+    Exercises.OrderRepository.get_all() |> IO.inspect()
+  end
 end
