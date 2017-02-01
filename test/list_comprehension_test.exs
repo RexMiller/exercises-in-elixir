@@ -1,10 +1,11 @@
 defmodule ListComprehensionTest do
-  import Exercises.OrderProcessing
+  import Exercises.OrderTaxCalculator
+  alias Exercises.OrderRepository, as: Orders
   use ExUnit.Case
 
   @tag :skip
   test "Pattern matching in list comprehension" do
-    orders = get_orders()
+    orders = Orders.get_all("orders.txt")
 
     for [id: _id, ship_to: ship_to, net_amount: _net] <- orders, 
       do: IO.inspect ship_to
@@ -12,7 +13,7 @@ defmodule ListComprehensionTest do
 
   @tag :skip
   test "multiple lists with filters" do
-    orders = get_orders()
+    orders = Orders.get_all("orders.txt")
     tax_rates = get_tax_rates()
 
     # Lists only orders shipping to TX. A little contrived and 

@@ -38,6 +38,7 @@ defmodule SetsTests do
     |> IO.inspect(label: "MapSet.difference(set2, set1)")
   end
 
+  @tag :skip
   test "MapSet Intersection" do
     set1 = 1..5 |> Enum.into(MapSet.new)
     set2 = 3..8 |> Enum.into(MapSet.new)
