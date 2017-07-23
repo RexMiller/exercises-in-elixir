@@ -177,18 +177,18 @@ Practicing recursion on lists
   def split(list, count), 
     do: _split(list, count, {[], []})
 
-  defp _split(_list, count, {list1, list2} = _acc)
+  defp _split(_list, count, {list1, list2})
     when length(list1) == count,
     do: {Enum.reverse(list1), list2}
 
-  defp _split(_list, count, {list1, list2} = _acc)
+  defp _split(_list, count, {list1, list2})
     when length(list2) == -1 * count,
     do: {Enum.reverse(list1), list2}
 
-  defp _split([], _count, {list1, list2} = _acc),
+  defp _split([], _count, {list1, list2}),
     do: {Enum.reverse(list1), list2}
 
-  defp _split([head | tail], count, {list1, _} = _acc) do
+  defp _split([head | tail], count, {list1, _}) do
     _split(tail, count, {[head | list1], tail})
   end
 
